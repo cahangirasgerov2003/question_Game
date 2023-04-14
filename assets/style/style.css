@@ -1,0 +1,26 @@
+.total-point {
+  font-size: 40px;
+  animation: title-pointer 1s linear 0s infinite alternate;
+  color: white;
+}
+.start-button,
+.exit-button {
+  font-size: 30px;
+  border-radius: 5px;
+}
+.page-image {
+  text-align: center;
+  margin-top: 50px;
+}
+/* @keyframes title-pointer {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.02);
+  }
+} */
+#options div p,
+#options div h2 {
+  border: 1px solid rgba(202, 197, 197, 0.514);
+}

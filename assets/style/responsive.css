@@ -1,0 +1,9 @@
+@media only screen and (max-width: 768px) {
+  .total-point {
+    font-size: 30px;
+  }
+  .start-button,
+  .exit-button {
+    font-size: 25px;
+  }
+}
