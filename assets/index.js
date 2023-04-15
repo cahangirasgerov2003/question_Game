@@ -34,16 +34,17 @@ class QuestionGame {
   randomQuestion() {
     let randomNumber = Math.floor(Math.random() * this.questions.length);
     console.log(randomNumber);
+    console.log("length", this.questions.length);
     this.renderQuestion(randomNumber);
   }
-  renderQuestion(num) {
+  renderQuestion(num1) {
     gamePage.innerHTML = `<div class="progress mt-5">
     <div
     id="progressElement"
       class="progress-bar progress-bar-striped bg-success"
       role="progressbar"
       style="width:${valueProgressbar}%"
-      aria-valuenow="25"
+      aria-valuenow="${valueProgressbar}"
       aria-valuemin="0"
       aria-valuemax="100"
     ></div>
@@ -61,7 +62,7 @@ class QuestionGame {
         id="questionDescription"
         class="lead text-white text-center font-weight-bold"
       >
-        ${this.questions[num].question}
+        ${this.questions[num1].question}
       </p>
     </div>
   </div>
@@ -77,7 +78,7 @@ class QuestionGame {
         id="questionVariant1"
         class="h4 bg-white text-dark p-3 rounded-lg"
       >
-      ${this.questions[num].answer[0]}
+      ${this.questions[num1].answer[0]}
       </h2>
     </div>
 
@@ -87,7 +88,7 @@ class QuestionGame {
         id="questionVariant2"
         class="h4 bg-white text-dark p-3 rounded-lg"
       >
-      ${this.questions[num].answer[1]}
+      ${this.questions[num1].answer[1]}
       </h2>
     </div>
 
@@ -97,18 +98,17 @@ class QuestionGame {
         id="questionVariant3"
         class="h4 bg-white text-dark p-3 rounded-lg"
       >
-      ${this.questions[num].answer[2]}
+      ${this.questions[num1].answer[2]}
       </h2>
     </div>
   </div>`;
-    this.comparingAnswer(num);
+    this.comparingAnswer(num1);
   }
-  comparingAnswer(num) {
+  comparingAnswer(num2) {
     console.log("muqayise", this.questions);
-    window.addEventListener("keyup", (e) => {
-      e.preventDefault();
+    window.addEventListener("keydown", (e) => {
       if (e.key === "a" || e.key === "b" || e.key === "c") {
-        if (e.key === this.questions[num].trueAnswer) {
+        if (e.key === this.questions[num2].trueAnswer) {
           document.querySelector("#progressElement").style.width =
             valueProgressbar + 20 + "%";
           valueProgressbar += 20;
@@ -117,8 +117,8 @@ class QuestionGame {
           document.querySelector("#" + e.key).style.backgroundColor = "red";
         }
         setTimeout(() => {
-          console.log("num", num);
-          this.selectNewQuestion(num);
+          console.log("num", num2);
+          this.selectNewQuestion(num2);
         }, 1000);
       } else {
         alert("Please choose one of the letters 'A B C' from the keyboard");
@@ -132,7 +132,6 @@ class QuestionGame {
   }
 }
 let questionGame = new QuestionGame(questions);
-console.log("bir defe");
 questionGame.randomQuestion();
 document.querySelector(".exit-button").addEventListener("click", () => {
   window.close();
