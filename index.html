@@ -20,7 +20,7 @@
   </head>
   <body>
     <!-- Initial page -->
-    <div id="initial-page" class="container">
+    <div id="initial-page" class="container d-none">
       <div class="row mt-5">
         <div class="col-8 bg-dark mx-auto p-5 d-flex justify-content-center">
           <p class="text-center font-weight-bold m-0 py-2 total-point">
@@ -47,9 +47,9 @@
       </div>
     </div>
     <!-- Game page -->
-    <div id="game-page" class="container d-none">
-      <div class="progress mt-5">
-        <div
+    <div id="game-page" class="container">
+      <!-- <div class="progress mt-5">
+        <div id="progressElement"
           class="progress-bar progress-bar-striped bg-success"
           role="progressbar"
           style="width: 0%"
@@ -61,8 +61,16 @@
 
       <div class="jumbotron jumbotron-fluid rounded-lg mt-5 bg-dark">
         <div class="container">
-          <h1 class="text-white text-center font-weight-bold">Question 1</h1>
-          <p class="lead text-white text-center font-weight-bold">
+          <h1
+            id="questionTitle"
+            class="text-white text-center font-weight-bold"
+          >
+            Question 1
+          </h1>
+          <p
+            id="questionDescription"
+            class="lead text-white text-center font-weight-bold"
+          >
             What do you call people who are 18+ ?
           </p>
         </div>
@@ -75,19 +83,34 @@
       >
         <div class="col-lg-4 col-sm-6">
           <p class="h4 bg-dark text-white p-3 rounded-lg mb-0">A)</p>
-          <h2 class="h4 bg-white text-dark p-3 rounded-lg">Baby</h2>
+          <h2
+            id="questionVariant1"
+            class="h4 bg-white text-dark p-3 rounded-lg"
+          >
+            Baby
+          </h2>
         </div>
 
         <div class="col-lg-4 col-sm-6">
           <p class="h4 bg-dark text-white p-3 rounded-lg mb-0">B)</p>
-          <h2 class="h4 bg-white text-dark p-3 rounded-lg">Adult</h2>
+          <h2
+            id="questionVariant2"
+            class="h4 bg-white text-dark p-3 rounded-lg"
+          >
+            Adult
+          </h2>
         </div>
 
         <div class="col-lg-4 col-sm-12">
           <p class="h4 bg-dark text-white p-3 rounded-lg mb-0">C)</p>
-          <h2 class="h4 bg-white text-dark p-3 rounded-lg">Person</h2>
+          <h2
+            id="questionVariant3"
+            class="h4 bg-white text-dark p-3 rounded-lg"
+          >
+            Person
+          </h2>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
