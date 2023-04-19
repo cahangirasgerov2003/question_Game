@@ -125,8 +125,8 @@ class QuestionGame {
       }
     });
   }
-  selectNewQuestion(num) {
-    this.questions.splice(num, 1);
+  selectNewQuestion(num3) {
+    this.questions.splice(num3, 1);
     console.log("silme", this.questions);
     this.randomQuestion();
   }
