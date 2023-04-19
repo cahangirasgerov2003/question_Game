@@ -108,6 +108,7 @@ class QuestionGame {
     if (this.questions.length === 1) {
       document.querySelector("#game-page").classList.add("d-none");
       document.querySelector("#game-over").classList.remove("d-none");
+      window.removeEventListener("keydown", a);
       let indexRam = setInterval(() => {
         document.querySelector("#second").innerHTML -= 1;
       }, 1000);
@@ -116,6 +117,7 @@ class QuestionGame {
         document.querySelector("#initial-page").classList.remove("d-none");
         clearInterval(indexRam);
         window.location.reload();
+        window.addEventListener("keydown", a);
       }, 5000);
     } else {
       this.questions.splice(randomNumberQuestion, 1);
@@ -132,24 +134,27 @@ document.querySelector(".start-button").addEventListener("click", () => {
   document.querySelector("#initial-page").classList.add("d-none");
   document.querySelector("#game-page").classList.remove("d-none");
 });
-window.addEventListener("keydown", (e) => {
-  if (position) {
-    if (e.key === "a" || e.key === "b" || e.key === "c") {
-      position = false;
-      if (e.key === questionGame.questions[randomNumberQuestion].trueAnswer) {
-        document.querySelector("#progressElement").style.width =
-          valueProgressbar + 20 + "%";
-        valueProgressbar += 20;
-        document.querySelector("#" + e.key).style.backgroundColor = "green";
+window.addEventListener(
+  "keydown",
+  (a = (e) => {
+    if (position) {
+      if (e.key === "a" || e.key === "b" || e.key === "c") {
+        position = false;
+        if (e.key === questionGame.questions[randomNumberQuestion].trueAnswer) {
+          document.querySelector("#progressElement").style.width =
+            valueProgressbar + 20 + "%";
+          valueProgressbar += 20;
+          document.querySelector("#" + e.key).style.backgroundColor = "green";
+        } else {
+          document.querySelector("#" + e.key).style.backgroundColor = "red";
+        }
+        setTimeout(() => {
+          questionGame.selectNewQuestion(randomNumberQuestion);
+          position = true;
+        }, 1000);
       } else {
-        document.querySelector("#" + e.key).style.backgroundColor = "red";
+        alert("Please choose one of the letters 'A B C' from the keyboard");
       }
-      setTimeout(() => {
-        questionGame.selectNewQuestion(randomNumberQuestion);
-        position = true;
-      }, 1000);
-    } else {
-      alert("Please choose one of the letters 'A B C' from the keyboard");
     }
-  }
-});
+  })
+);
