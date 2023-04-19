@@ -20,7 +20,7 @@
   </head>
   <body>
     <!-- Initial page -->
-    <div id="initial-page" class="container d-none">
+    <div id="initial-page" class="container">
       <div class="row mt-5">
         <div class="col-8 bg-dark mx-auto p-5 d-flex justify-content-center">
           <p class="text-center font-weight-bold m-0 py-2 total-point">
@@ -46,8 +46,17 @@
         <img src="./assets/img/question-image.png" width="180px" />
       </div>
     </div>
+    <!-- Game Over -->
+    <div id="game-over" class="bg-dark d-none text-info m-0 p-3">
+      <div class="display-4 text-danger text-center">Game Over!</div>
+      <div class="h1 text-center">
+        Your result will be displayed on the screen after
+        <p id="second" class="display-4 text-center text-danger my-3">5</p>
+        seconds.
+      </div>
+    </div>
     <!-- Game page -->
-    <div id="game-page" class="container">
+    <div id="game-page" class="container d-none">
       <!-- <div class="progress mt-5">
         <div id="progressElement"
           class="progress-bar progress-bar-striped bg-success"

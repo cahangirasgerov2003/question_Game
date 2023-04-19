@@ -27,3 +27,7 @@
 #options div p {
   background-color: #343a40;
 }
+#game-over {
+  height: 100vh;
+  overflow: hidden;
+}

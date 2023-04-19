@@ -27,17 +27,18 @@ let questions = [
 ];
 let gamePage = document.querySelector("#game-page");
 let valueProgressbar = 0;
+let randomNumberQuestion = 0;
+let position = true;
 class QuestionGame {
   constructor(questions) {
     this.questions = questions;
   }
   randomQuestion() {
     let randomNumber = Math.floor(Math.random() * this.questions.length);
-    console.log(randomNumber);
-    console.log("length", this.questions.length);
-    this.renderQuestion(randomNumber);
+    randomNumberQuestion = randomNumber;
+    this.renderQuestion();
   }
-  renderQuestion(num1) {
+  renderQuestion() {
     gamePage.innerHTML = `<div class="progress mt-5">
     <div
     id="progressElement"
@@ -62,7 +63,7 @@ class QuestionGame {
         id="questionDescription"
         class="lead text-white text-center font-weight-bold"
       >
-        ${this.questions[num1].question}
+        ${this.questions[randomNumberQuestion].question}
       </p>
     </div>
   </div>
@@ -70,7 +71,7 @@ class QuestionGame {
   <div
     id="options"
     class="row"
-    onclick="alert("Please select one of the 'A B C' sounds from the keyboard")"
+    onclick="alert('Please select one of the A B C sounds from the keyboard')"
   >
     <div class="col-lg-4 col-sm-6">
       <p id="a" class="h4 text-white p-3 rounded-lg mb-0">A)</p>
@@ -78,7 +79,7 @@ class QuestionGame {
         id="questionVariant1"
         class="h4 bg-white text-dark p-3 rounded-lg"
       >
-      ${this.questions[num1].answer[0]}
+      ${this.questions[randomNumberQuestion].answer[0]}
       </h2>
     </div>
 
@@ -88,7 +89,7 @@ class QuestionGame {
         id="questionVariant2"
         class="h4 bg-white text-dark p-3 rounded-lg"
       >
-      ${this.questions[num1].answer[1]}
+      ${this.questions[randomNumberQuestion].answer[1]}
       </h2>
     </div>
 
@@ -98,45 +99,57 @@ class QuestionGame {
         id="questionVariant3"
         class="h4 bg-white text-dark p-3 rounded-lg"
       >
-      ${this.questions[num1].answer[2]}
+      ${this.questions[randomNumberQuestion].answer[2]}
       </h2>
     </div>
   </div>`;
-    this.comparingAnswer(num1);
   }
-  comparingAnswer(num2) {
-    console.log("muqayise", this.questions);
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "a" || e.key === "b" || e.key === "c") {
-        if (e.key === this.questions[num2].trueAnswer) {
-          document.querySelector("#progressElement").style.width =
-            valueProgressbar + 20 + "%";
-          valueProgressbar += 20;
-          document.querySelector("#" + e.key).style.backgroundColor = "green";
-        } else {
-          document.querySelector("#" + e.key).style.backgroundColor = "red";
-        }
-        setTimeout(() => {
-          console.log("num", num2);
-          this.selectNewQuestion(num2);
-        }, 1000);
-      } else {
-        alert("Please choose one of the letters 'A B C' from the keyboard");
-      }
-    });
-  }
-  selectNewQuestion(num3) {
-    this.questions.splice(num3, 1);
-    console.log("silme", this.questions);
-    this.randomQuestion();
+  selectNewQuestion(randomNumberQuestion) {
+    if (this.questions.length === 1) {
+      document.querySelector("#game-page").classList.add("d-none");
+      document.querySelector("#game-over").classList.remove("d-none");
+      let indexRam = setInterval(() => {
+        document.querySelector("#second").innerHTML -= 1;
+      }, 1000);
+      setTimeout(() => {
+        document.querySelector("#game-over").classList.add("d-none");
+        document.querySelector("#initial-page").classList.remove("d-none");
+        clearInterval(indexRam);
+        window.location.reload();
+      }, 5000);
+    } else {
+      this.questions.splice(randomNumberQuestion, 1);
+      this.randomQuestion();
+    }
   }
 }
 let questionGame = new QuestionGame(questions);
-questionGame.randomQuestion();
 document.querySelector(".exit-button").addEventListener("click", () => {
   window.close();
 });
 document.querySelector(".start-button").addEventListener("click", () => {
+  questionGame.randomQuestion();
   document.querySelector("#initial-page").classList.add("d-none");
   document.querySelector("#game-page").classList.remove("d-none");
+});
+window.addEventListener("keydown", (e) => {
+  if (position) {
+    if (e.key === "a" || e.key === "b" || e.key === "c") {
+      position = false;
+      if (e.key === questionGame.questions[randomNumberQuestion].trueAnswer) {
+        document.querySelector("#progressElement").style.width =
+          valueProgressbar + 20 + "%";
+        valueProgressbar += 20;
+        document.querySelector("#" + e.key).style.backgroundColor = "green";
+      } else {
+        document.querySelector("#" + e.key).style.backgroundColor = "red";
+      }
+      setTimeout(() => {
+        questionGame.selectNewQuestion(randomNumberQuestion);
+        position = true;
+      }, 1000);
+    } else {
+      alert("Please choose one of the letters 'A B C' from the keyboard");
+    }
+  }
 });
